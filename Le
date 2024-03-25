@@ -1,0 +1,84 @@
+#include <iostream> 
+template <class T>
+struct nodo {
+    T v;
+    nodo* next = NULL;
+    nodo* prev = NULL;
+    nodo( T valor, nodo* n= NULL, nodo* p=  NULL):v(valor), next(n) , prev(p){}
+};
+template <class T>
+struct Le {
+    nodo<T>* head = NULL;
+    nodo<T>* final = NULL;
+    void push_back (T valor){
+        nodo<T>* rec = NULL;
+        if (head==NULL){
+            head = new nodo<T>(valor, NULL, NULL);
+        }
+        else {
+            rec = head;
+            while(rec->next){
+                rec = rec->next;
+            }
+            
+            rec->next = new nodo<T>(valor, NULL, rec);
+            final = rec->next;
+        }
+    }
+    void push_front(T valor){
+            nodo<T>* safe = head;
+            head = NULL;
+            head = new nodo<T>(valor, NULL, NULL);
+            head->next = safe;
+    }
+    void pop_back (){
+    
+        std::cout<< final->v << std::endl;
+        nodo<T>* fin = final;
+        final = final->prev;
+        std::cout<< final->v << std::endl;
+        final->next = NULL;
+        delete fin;
+        
+        
+    }
+    void pop_front(){
+        nodo<T>* eliminar = head;
+        head = head->next;
+        delete eliminar;
+    }
+    void print(){
+        nodo<T>* rec = head;
+        while (rec){
+            std::cout<<rec->v<<"\n";
+            rec = rec->next;
+        }
+    }
+    T operator [](int valor){
+        nodo<T>* rec = head;
+        for (int i = 0; i< valor; ++i){
+            rec = rec->next;
+        }
+        return rec->v;
+    }
+};
+    
+int main(){
+    Le<int> test; 
+    test.push_back(1);
+    
+    test.push_back(2);
+    test.push_back(3);
+    test.push_back(4);
+    test.push_back(4);
+    test.push_back(5);
+    test.print();
+    
+    std::cout<<" el valor 2 es: "<<test[2]<<"\n";
+    
+    std::cout<< "la nueva lista es"<<"\n";
+    test.pop_back();
+    test.print();
+    
+    return 0;
+}
