@@ -78,11 +78,11 @@ public:
 
                 if (arr == fin && arr[tam - 1] != 0) {
                     fin = new int[tam]();
-                    fin[0] = valor;
+                    *fin = valor;
                 }
                 else if (arr == ini && arr[0] != 0) {
                     ini = new int[tam]();
-                    ini[0] = valor;
+                    *ini = valor;
                 }
             }
         }
